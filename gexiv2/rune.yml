@@ -1,0 +1,74 @@
+# Generated with runic (docs/DECISIONS.md). Adapted from odin-gtk (MIT, docs/LICENSE-odin-gtk.md).
+version: 0
+platforms:
+  - Linux x86_64
+from:
+  language: c
+  shared.linux: 'libgexiv2.so'
+  headers: ../build/inc/gexiv2/gexiv2.h
+  includedirs:
+    - ../stdinc/
+    - ../build/inc/
+    - ../build/sys/usr/include/glib-2.0/
+    - ../build/sys/usr/lib/x86_64-linux-gnu/glib-2.0/include/
+  defines:
+    GLIB_DISABLE_DEPRECATION_WARNINGS: 1
+  load_all_includes: true
+  extern:
+    - "../stdinc/*"
+    - "../stdinc/sys/*"
+    - "../build/sys/usr/include/glib-2.0/glib/*"
+    - "../build/sys/usr/include/glib-2.0/glib/deprecated/*"
+    - "../build/sys/usr/include/glib-2.0/gobject/*"
+    - "../build/sys/usr/include/glib-2.0/gmodule/*"
+    - "../build/sys/usr/include/glib-2.0/gio/*"
+    - "../build/sys/usr/include/glib-2.0/*.h"
+    - "../build/sys/usr/lib/x86_64-linux-gnu/glib-2.0/include/*"
+  ignore:
+    types:
+      - va_list
+      - '*autoptr*'
+    constants:
+      - '_GEXIV2_*'
+    functions:
+      - '*autoptr*'
+      - '*auto_cleanup*'
+to:
+  language: odin
+  package: gexiv2
+  out: gexiv2.odin
+  no_build_tag: true
+  detect:
+    parameters: declared
+    arrays:
+      metadata_set_tag_multiple: [values]
+      metadata_try_set_tag_multiple: [values]
+  trim_prefix:
+    types:
+      - GExiv2
+      - g
+      - G
+    functions:
+      - gexiv2_
+    variables:
+      - gexiv2_
+    constants:
+      - GEXIV2_
+    enum_type_name: true
+  extern:
+    sources:
+      "../stdinc/stdarg.h": "core:c/libc"
+      "../stdinc/pthread.h": "core:c/libc"
+      "../stdinc/sys/types.h": "core:sys/linux"
+      "../build/sys/usr/include/glib-2.0/glib/*": "glib glib:glib"
+      "../build/sys/usr/include/glib-2.0/glib.h": "glib glib:glib"
+      "../build/sys/usr/include/glib-2.0/glib/deprecated/*": "glib glib:glib"
+      "../build/sys/usr/lib/x86_64-linux-gnu/glib-2.0/include/*": "glib glib:glib"
+      "../build/sys/usr/include/glib-2.0/gobject/*": "gobj glib:gobject"
+      "../build/sys/usr/include/glib-2.0/glib-object.h": "gobj glib:gobject"
+      "../build/sys/usr/include/glib-2.0/gmodule/*": "gobj glib:gobject"
+      "../build/sys/usr/include/glib-2.0/gio/*": "gio glib:gio"
+    remaps:
+      pid_t: Pid
+      uid_t: Uid
+    trim_prefix: true
