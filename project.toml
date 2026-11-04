@@ -1,0 +1,34 @@
+# What odin-gexiv2 is and needs: build is what a program on it needs, test what only its own
+# tests and checks need. house-rules docs/PROJECT_TOML.md has the layout.
+[project]
+schema = "amber-project-1"
+name = "odin-gexiv2"
+license = "GPL-3.0-or-later"
+kind = "binding"
+summary = "Odin bindings for gexiv2, generated with runic"
+tags = [
+  "ai-assisted",
+  "bindings",
+  "gexiv2",
+  "linux",
+  "odin",
+  "runic",
+]
+collection = "gexiv2"
+
+[siblings.AMBER_ROOT]
+odin-glib = "https://github.com/Hyperquader-Coders/odin-glib"
+
+[build]
+packages = [
+  "libgexiv2-dev",
+]
+lib = [
+  "gexiv2",
+]
+
+[test]
+packages = [
+  "shellcheck",
+  "shfmt",
+]
